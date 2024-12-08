@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/productsFragment"
+        android:icon="@drawable/product"
+        android:title="Ürünler" />
+
+    <item
+        android:id="@+id/ordersFragment"
+        android:icon="@drawable/order_svgrepo_com_2"
+        android:title="Siparişler" />
+
+    <item
+        android:id="@+id/adminProfileFragment"
+        android:icon="@drawable/profile_2user_svgrepo"
+        android:title="Hesap" />
+
+</menu>

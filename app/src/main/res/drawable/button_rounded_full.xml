@@ -1,0 +1,10 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Arka plan rengi (dolu renk) -->
+    <solid android:color="#E40000" /> <!-- Dolgu rengi -->
+
+    <!-- Köşe yuvarlama -->
+    <corners android:radius="40dp" /> <!-- Kenar yuvarlama -->
+
+    <!-- Kenar çizgisi -->
+
+</shape>

@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/transparent" /> <!-- Şeffaf arka plan -->
+    <corners android:radius="40dp" /> <!-- Kenar yuvarlama -->
+    <stroke android:color="#D12727" android:width="2dp" /> <!-- Kenar rengi ve kalınlığı -->
+</shape>

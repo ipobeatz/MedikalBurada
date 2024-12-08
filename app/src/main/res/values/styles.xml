@@ -1,0 +1,12 @@
+<resources>
+    <!-- Stil tanımlamaları -->
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <!-- Ortak özellikler -->
+        <item name="itemIconSize">24dp</item>
+        ...
+    </style>
+
+    <style name="BottomNavigationView.Text" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

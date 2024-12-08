@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "462167363056",
+    "project_id": "medikalburada-cccec",
+    "storage_bucket": "medikalburada-cccec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462167363056:android:a6641c76744ffaa8692135",
+        "android_client_info": {
+          "package_name": "com.android.medikalburada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALS6ils-IbEU7Zl1_gnm5PKVsSEWTxJsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
