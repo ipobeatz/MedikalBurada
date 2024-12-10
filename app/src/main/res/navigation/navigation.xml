@@ -12,7 +12,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.android.medikalburada.ui.user.auth.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
 
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
@@ -27,19 +28,24 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.android.medikalburada.ui.user.auth.RegisterFragment"
-        android:label="RegisterFragment">
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register">
 
-    <action
-        android:id="@+id/action_registerFragment_to_loginFragment"
-        app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.android.medikalburada.ui.user.HomeFragment"
+        android:name="com.android.medikalburada.ui.user.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
 
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.android.medikalburada.ui.user.auth.WelcomeFragment"
@@ -61,7 +67,7 @@
 
     <fragment
         android:id="@+id/adminLoginFragment"
-        android:name="com.android.medikalburada.ui.admin.AdminLoginFragment"
+        android:name="com.android.medikalburada.ui.admin.auth.AdminLoginFragment"
         android:label="Admin Login"
         tools:layout="@layout/fragment_admin_login">
 
@@ -73,27 +79,71 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.android.medikalburada.ui.user.ProfileFragment"
+        android:name="com.android.medikalburada.ui.user.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profileFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/shoppingFragment"
-        android:name="com.android.medikalburada.ui.user.ShoppingFragment"
+        android:name="com.android.medikalburada.ui.user.shopping.ShoppingFragment"
         android:label="ShoppingFragment"
-        tools:layout="@layout/fragment_shopping"/>
+        tools:layout="@layout/fragment_shopping" />
     <fragment
         android:id="@+id/adminProfileFragment"
-        android:name="com.android.medikalburada.ui.admin.AdminProfileFragment"
+        android:name="com.android.medikalburada.ui.admin.profile.AdminProfileFragment"
         android:label="AdminProfileFragment"
-        tools:layout="@layout/fragment_admin_profile"/>
+        tools:layout="@layout/fragment_admin_profile">
+
+        <action
+            android:id="@+id/action_adminProfileFragment_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment" />
+
+        <action
+            android:id="@+id/action_adminProfileFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.android.medikalburada.ui.admin.OrdersFragment"
+        android:name="com.android.medikalburada.ui.admin.orders.OrdersFragment"
         android:label="OrdersFragment"
-        tools:layout="@layout/fragment_orders"/>
+        tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.android.medikalburada.ui.admin.ProductsFragment"
+        android:name="com.android.medikalburada.ui.admin.product.ProductsFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/fragment_products"/>
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.android.medikalburada.ui.user.home.ProductDetailFragment"
+        android:label="Ürün Detayı"
+        tools:layout="@layout/fragment_product_detail">
+        <argument
+            android:name="product"
+            app:argType="com.android.medikalburada.ui.user.home.ProductModel"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/personalInfoFragment"
+        android:name="com.android.medikalburada.ui.user.profile.PersonalInfoFragment"
+        android:label="Kişisel Bilgiler"
+        tools:layout="@layout/fragment_personal_info" />
+    <fragment
+        android:id="@+id/personalInfoAdminFragment"
+        android:name="com.android.medikalburada.ui.admin.profile.PersonalInfoAdminFragment"
+        android:label="PersonalInfoAdminFragment"
+        tools:layout="@layout/fragment_personal_info_admin" />
+
 </navigation>

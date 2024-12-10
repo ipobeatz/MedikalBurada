@@ -19,3 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Firestore data classes için
+-keepclassmembers class * {
+    public *;
+}
+
+# Firestore toObject() için
+-keepnames class com.android.medikalburada.ui.user.home.ProductModel {
+    *;
+}

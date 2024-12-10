@@ -7,6 +7,7 @@ plugins {
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
     kotlin(libs.plugins.plugin.serializaton.get().pluginId)
+    id ("kotlin-parcelize")
 }
 
 android {

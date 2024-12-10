@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.android.medikalburada.AuthManager
+import com.android.medikalburada.MainActivity
 import com.android.medikalburada.R
 import com.android.medikalburada.databinding.FragmentLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment constructor() : Fragment() {
@@ -27,6 +30,11 @@ class LoginFragment constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        saveUserType("admin")
+
+
+        saveUserType("user")
 
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
@@ -54,14 +62,15 @@ class LoginFragment constructor() : Fragment() {
                     Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT)
                         .show()
 
-                    val navOptions =
-                        NavOptions.Builder().setPopUpTo(R.id.welcomeFragment, true).build()
+                    ((requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.nav_user_view)).menu.clear()
+                    ((requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.nav_user_view)).inflateMenu(R.menu.bottom_nav_user_menu)
 
-                    findNavController().navigate(
-                        R.id.action_loginFragment_to_homeFragment,
-                        null,
-                        navOptions
-                    )
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.loginFragment, inclusive = true) // Şu anki fragment yığından silinecek
+                        .build()
+
+                    findNavController().navigate(R.id.homeFragment, null, navOptions)
+
                 } else {
 
                     Toast.makeText(
@@ -72,8 +81,22 @@ class LoginFragment constructor() : Fragment() {
         }
     }
 
+    private fun saveUserType(userType: String) {
+        val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", 0)
+        val editor = sharedPreferences.edit()
+        editor.putString("userType", userType) // "admin" veya "user" olarak kaydet
+        editor.apply()
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getUserRole(): String {
+        val authManager = AuthManager()
+        val currentUser = authManager.getCurrentUser()
+        return if (currentUser?.email == "admin@medikalburada.com") "admin" else "user"
     }
 }

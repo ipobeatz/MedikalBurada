@@ -10,12 +10,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.android.medikalburada.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,52 +26,67 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Navigation Controller başlat
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-        navController = navHostFragment.navController
+            navController = navHostFragment.navController
 
+            // Kullanıcı durumu kontrol etmeden önce navController başlatıldığından emin olun
         val userRole = getUserRole()
-        if (userRole == "admin") {
-            binding.navAdminView.visibility = View.VISIBLE
-            binding.navUserView.visibility = View.GONE
-            binding.navAdminView.setupWithNavController(navController)
-        } else {
-            binding.navUserView.visibility = View.VISIBLE
-            binding.navAdminView.visibility = View.GONE
-            binding.navUserView.setupWithNavController(navController)
-        }
+        //checkUserLoginStatus()
 
-        // Giriş ekranlarında Bottom Navigation'ı gizle
+        binding.navUserView.setupWithNavController(navController)
+
+            // Giriş ekranlarında Bottom Navigation'ı gizle
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            val userRole_ = getUserRole()
             when (destination.id) {
                 R.id.loginFragment, R.id.registerFragment, R.id.adminLoginFragment, R.id.welcomeFragment -> {
-                    // Giriş ekranlarında Bottom Navigation'ı gizle
                     binding.navUserView.visibility = View.GONE
-                    binding.navAdminView.visibility = View.GONE
                 }
                 else -> {
-                    // Kullanıcı rolüne göre Bottom Navigation görünürlüğü ayarla
-                    val userRole = getUserRole()
-                    if (userRole == "admin") {
-                        binding.navAdminView.visibility = View.VISIBLE
-                        binding.navUserView.visibility = View.GONE
-                        binding.navAdminView.setupWithNavController(navController)
-                    } else {
-                        binding.navUserView.visibility = View.VISIBLE
-                        binding.navAdminView.visibility = View.GONE
-                        binding.navUserView.setupWithNavController(navController)
-                    }
+                    binding.navUserView.visibility = View.VISIBLE
                 }
             }
         }
-        }
+    }
 
-    // Örnek kullanıcı rolü belirleme fonksiyonu
     private fun getUserRole(): String {
-        // Burada kullanıcı rolü Firebase ya da başka bir yöntemle belirlenebilir.
         val authManager = AuthManager()
         val currentUser = authManager.getCurrentUser()
         return if (currentUser?.email == "admin@medikalburada.com") "admin" else "user"
+    }
 
+    private fun checkUserLoginStatus() {
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            FirebaseFirestore.getInstance().collection("users")
+                .document(currentUser.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val role = document.getString("role")
+                        when (role) {
+                            "admin" -> {
+                                navController.navigate(R.id.productsFragment) // Admin ekranına yönlendir
+                            }
+                            "user" -> {
+                                navController.navigate(R.id.homeFragment) // Kullanıcı ekranına yönlendir
+                            }
+                            else -> {
+                                navController.navigate(R.id.welcomeFragment) // Welcome ekranına yönlendir
+                            }
+                        }
+                    } else {
+                        navController.navigate(R.id.welcomeFragment)
+                    }
+                }
+                .addOnFailureListener {
+                    navController.navigate(R.id.welcomeFragment)
+                }
+        } else {
+            navController.navigate(R.id.welcomeFragment)
+        }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.android.medikalburada.ui.admin
+package com.android.medikalburada.ui.admin.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.android.medikalburada.AuthManager
+import com.android.medikalburada.MainActivity
 import com.android.medikalburada.R
 import com.android.medikalburada.databinding.FragmentAdminLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdminLoginFragment : Fragment() {
@@ -40,7 +43,15 @@ class AdminLoginFragment : Fragment() {
                         if (success) {
                             Toast.makeText(context, "Admin girişi başarılı!", Toast.LENGTH_SHORT)
                                 .show()
+                            ((requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.nav_user_view)).menu.clear()
+                            ((requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.nav_user_view)).inflateMenu(R.menu.bottom_nav_admin_menu)
                             findNavController().navigate(R.id.action_adminLoginFragment_to_productsFragment)
+
+                            val navOptions = NavOptions.Builder()
+                                .setPopUpTo(R.id.adminLoginFragment, inclusive = true) // Şu anki fragment yığından silinecek
+                                .build()
+
+                            findNavController().navigate(R.id.productsFragment, null, navOptions)
                         } else {
                             Toast.makeText(context, "Giriş başarısız!", Toast.LENGTH_SHORT).show()
                         }
@@ -50,6 +61,9 @@ class AdminLoginFragment : Fragment() {
                         .show()
                 }
             }
+        }
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
     private fun validateAdminCode(email: String, inputCode: String, onResult: (Boolean) -> Unit) {

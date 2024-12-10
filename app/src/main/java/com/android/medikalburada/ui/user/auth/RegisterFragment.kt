@@ -46,6 +46,9 @@ class RegisterFragment : Fragment() {
 
             registerUser(firstName, lastName, email, password)
         }
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun registerUser(firstName: String, lastName: String, email: String, password: String) {
