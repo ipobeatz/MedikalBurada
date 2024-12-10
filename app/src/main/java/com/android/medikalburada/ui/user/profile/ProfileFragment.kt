@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.medikalburada.MainActivity
 import com.android.medikalburada.R
 import com.android.medikalburada.databinding.FragmentProfileBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,6 +33,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ((requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.nav_user_view)).visibility = View.VISIBLE
         setupUserProfile()
         // Verileri oluştur
         val menuItems = listOf(

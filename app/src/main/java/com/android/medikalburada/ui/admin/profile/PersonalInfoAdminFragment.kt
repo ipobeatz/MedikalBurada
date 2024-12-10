@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.android.medikalburada.MainActivity
+import com.android.medikalburada.R
 import com.android.medikalburada.databinding.FragmentPersonalInfoAdminBinding
 import com.android.medikalburada.databinding.FragmentPersonalInfoBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,7 +31,7 @@ class PersonalInfoAdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        ((requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.nav_user_view)).visibility = View.GONE
         loadUserData()
 
         // Kaydet butonu
@@ -40,6 +44,10 @@ class PersonalInfoAdminFragment : Fragment() {
             } else {
                 saveUserData(firstName, lastName)
             }
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

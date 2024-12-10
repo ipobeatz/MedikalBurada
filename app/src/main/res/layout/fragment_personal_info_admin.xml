@@ -7,6 +7,15 @@
     android:padding="16dp"
     tools:context=".ui.user.profile.PersonalInfoFragment">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="23dp"
+        android:layout_height="28dp"
+        android:background="@drawable/left_arrow_svgrepo_com"
+        android:contentDescription="Geri Dön"
+        app:layout_constraintBottom_toTopOf="@+id/etFirstName"
+        app:layout_constraintStart_toStartOf="@+id/etFirstName" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
