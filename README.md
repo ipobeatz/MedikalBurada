@@ -16,7 +16,7 @@
 
 | Admin Login | Admin Product |  Admin Add Product  |  Admin Orders
 |:-:|:-:|:-:|:-:|
-| ![7](medik/user/user1.png) | ![8](medik/admin/admin1.png) | ![9](medik/admin/admin2.png) | ![10](medik/admin/admin3.png) |
+| ![7](medik/user/user4.png) | ![8](medik/admin/admin1.png) | ![9](medik/admin/admin2.png) | ![10](medik/admin/admin3.png) |
 
 
 
